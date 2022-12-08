@@ -194,7 +194,6 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
         });
     }
 
-
     // MOSTRAR LA DESCARGA DEL DOCUMENTO
     private void showDocument(ViewHolder holder, Message message) {
         if (message.getType().equals("documento")){

@@ -357,7 +357,7 @@ public class ChatMultiActivity extends AppCompatActivity {
 
                     // VOLTEAR LA LISTA DE MENSAJES EN LAS NOTIFICACIONES
                     Collections.reverse(messages);
-                   // sendNotification(messages); Activar
+                    sendNotification(messages);
 
                 }
             }

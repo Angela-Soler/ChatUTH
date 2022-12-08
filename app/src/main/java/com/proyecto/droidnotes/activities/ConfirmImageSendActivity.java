@@ -140,7 +140,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
             ArrayList<Message> messages = new ArrayList<>();
             messages.add(message);
 
-           // sendNotification(messages); Activar
+            sendNotification(messages);
             finish();
        // }
 
