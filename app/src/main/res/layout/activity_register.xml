@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Etiqueta principal-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/applogo"
+            tools:srcCompat="@drawable/applogo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/txtcorreo"
+                android:layout_width="269dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:hint="Correo Electronico"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/txtPass"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:hint="Contraseña"
+                android:inputType="text|textPassword" />
+
+            <TextView
+                android:id="@+id/txtResetPass"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/verde"
+                android:layout_marginLeft="150dp"
+                android:text="Olvido su contraseña?"/>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Ingresar"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnNuevoRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="REGISTRARSE"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

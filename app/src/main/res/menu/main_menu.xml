@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    OPTIONS: PERFIL-->
+    <item android:id="@+id/itemProfile"
+        android:title="Perfil"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/itemAdd"
+        android:title="Nuevo Grupo"
+        app:showAsAction="never" />
+
+<!--    OPTIONS: CERRAR SESION-->
+    <item android:id="@+id/itemSignOut"
+        android:title="Cerrar Sesion"
+        app:showAsAction="never" />
+
+
+</menu>

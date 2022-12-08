@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bubble_corner_left"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/imageViewMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginRight="9dp"
+            android:minWidth="305dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_message"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/frameLayoutVideo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginRight="9dp"
+            android:layout_weight="1"
+            android:background="@color/colorBlack"
+            android:minWidth="305dp">
+
+            <View
+                android:id="@+id/viewVideo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:alpha="0.7"
+                android:background="@drawable/circular_view"
+                android:backgroundTint="@color/colorGrayDark" />
+
+            <ImageView
+                android:id="@+id/imageViewVideo"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_play" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre de Usuario"
+            android:textSize="14dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="8dp"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/textViewMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:text="Nuevo Mensaje.."
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutDocument"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/ic_file_gray_dark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="5dp"
+                    android:text="Documento"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4:00 pm"
+                android:textColor="@color/colorBlack"
+                android:textSize="10dp" />
+
+            <ImageView
+                android:id="@+id/imageViewCheck"
+                android:layout_width="35dp"
+                android:layout_height="15dp"
+                android:src="@drawable/icon_double_check_gray" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

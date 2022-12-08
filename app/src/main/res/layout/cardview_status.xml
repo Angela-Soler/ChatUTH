@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageUser"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_person"
+                android:layout_centerInParent="true"/>
+
+            <com.devlomi.circularstatusview.CircularStatusView
+                android:id="@+id/circularStatusView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                app:portion_color="@color/colorBlueAccent"
+                app:portion_spacing="4dp"
+                app:portion_width="2dp"
+                app:portions_count="3"/>
+
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+            <TextView
+                android:id="@+id/textViewUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nombre de usuario"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp"
+                android:layout_weight="1"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha"
+                android:textSize="14dp"
+                android:maxLines="1"
+                android:layout_marginLeft="5dp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
