@@ -69,7 +69,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setColor(Color.GRAY)
-                .setSmallIcon(R.mipmap.ic_logoapp)
+                .setSmallIcon(R.mipmap.uth)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body).setBigContentTitle(title));
     }
 
@@ -147,7 +147,7 @@ public class NotificationHelper extends ContextWrapper {
 
         }
         return new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_logoapp)
+                .setSmallIcon(R.mipmap.uth)
                 .setStyle(messagingStyle)
                 .addAction(actionResponse);
     }
