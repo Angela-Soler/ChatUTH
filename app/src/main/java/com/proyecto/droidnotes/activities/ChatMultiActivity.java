@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
@@ -71,8 +72,12 @@ public class ChatMultiActivity extends AppCompatActivity {
     NotificationProvider mNotificationProvider;
 
     ImageView mImageViewBack;
+    ImageView add_user;
+    ImageView view_user;
     TextView mTextViewUsername;
     CircleImageView mCircleImageUser;
+
+    ActionBar actionBar;
 
     // MESSAGE
     EditText mEditextMessage;
@@ -102,9 +107,10 @@ public class ChatMultiActivity extends AppCompatActivity {
     ArrayList<User> mReceivers = new ArrayList<>();
     int mCount = 0;
     String mReceiversName = "";
-    /////////////////////////////////// CIERRE DE VARIABLES ////////////////////////////////////////
 
-    /////////////////////////////////// INICIO DEL CREATE //////////////////////////////////////////
+    Boolean verIntegrantes = false;
+    Boolean agregarIntegrantes=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,10 +118,10 @@ public class ChatMultiActivity extends AppCompatActivity {
         setStatusBarColor();
 
         String chat = getIntent().getStringExtra("chat");
-        Log.i("LOG", chat);
+
         Gson gson = new Gson();
         mChat = gson.fromJson(chat, Chat.class);
-        Log.i("LOG", mChat.getIds().toString());
+
         //Log.i("LOG", getIntent().getStringExtra("ids"));
 
         // INSTANCIAS ==============================================================================
@@ -130,6 +136,7 @@ public class ChatMultiActivity extends AppCompatActivity {
         mUsersProvider = new UsersProvider();
         mAuthProvider = new AuthProvider();
         mChatsProvider = new ChatsProvider();
+        mMessageProvider = new MessagesProvider();
         mMessageProvider = new MessagesProvider();
         mFilesProvider = new FilesProvider();
         mNotificationProvider = new NotificationProvider();
@@ -147,9 +154,9 @@ public class ChatMultiActivity extends AppCompatActivity {
         }
 
         for (String id: mChat.getIds()){
-                // TODOS LOS USUARIOS QUE PARTICIPAN EN EL CHAT PARA QUE NO SE ELIMINEN DEL GRUPO
-                mUsersId.add(id);
-                Log.i("LOG", "Integrantes Totales:" + id);
+            // TODOS LOS USUARIOS QUE PARTICIPAN EN EL CHAT PARA QUE NO SE ELIMINEN DEL GRUPO
+            mUsersId.add(id);
+            Log.i("LOG", "Integrantes Totales:" + id);
         }
 
         mEditextMessage = findViewById(R.id.editTextMessage);
@@ -221,17 +228,17 @@ public class ChatMultiActivity extends AppCompatActivity {
             mUsersProvider.getUserInfo(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-               User user = documentSnapshot.toObject(User.class);
-               mReceivers.add(user);
-               mCount++;
+                    User user = documentSnapshot.toObject(User.class);
+                    mReceivers.add(user);
+                    mCount++;
 
 
-               if (mCount == mReceiversId.size()){
-                   for (User u: mReceivers){
-                       mReceiversName = mReceiversName + u.getUsername() + ", ";
-                   }
+                    if (mCount == mReceiversId.size()){
+                        for (User u: mReceivers){
+                            mReceiversName = mReceiversName + u.getUsername() + ", ";
+                        }
 
-               }
+                    }
                 }
             });
         }
@@ -310,7 +317,7 @@ public class ChatMultiActivity extends AppCompatActivity {
             // NUESTRO USUARIO YA QUE ESTAMOS ESCRIBIENDO EL MENSAJE Y ENVIANDOLO
             message.setIdSender(mAuthProvider.getId());
             // USUARIO DE RECIBE EL MENSAJE
-           //message.setIdReceiver(mExtraIdUser);
+            //message.setIdReceiver(mExtraIdUser);
             // TEXTO O MENSAJE
             message.setMessage(textMessage);
             message.setStatus("ENVIADO");
@@ -357,7 +364,7 @@ public class ChatMultiActivity extends AppCompatActivity {
 
                     // VOLTEAR LA LISTA DE MENSAJES EN LAS NOTIFICACIONES
                     Collections.reverse(messages);
-                    sendNotification(messages);
+                     sendNotification(messages);
 
                 }
             }
@@ -465,6 +472,7 @@ public class ChatMultiActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     private void createChat() {
         Random random = new Random();
         int n = random.nextInt(300000);
@@ -484,14 +492,14 @@ public class ChatMultiActivity extends AppCompatActivity {
 
         // METODO PARA SABER SI LA INFORMACION SE CREO CORRECTAMENTE
 
-            mChatsProvider.create(mChat).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    // LLAMAMOS AL METODO OBTENER MENSAJES POR CHAT
-                    getMessageByChat();
+        mChatsProvider.create(mChat).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                // LLAMAMOS AL METODO OBTENER MENSAJES POR CHAT
+                getMessageByChat();
 //                Toast.makeText(ChatActivity.this, "El chat se creo correctamente", Toast.LENGTH_SHORT).show();
-                }
-            });
+            }
+        });
 
     }
 
@@ -525,6 +533,8 @@ public class ChatMultiActivity extends AppCompatActivity {
         mImageViewBack = view.findViewById(R.id.imageViewBack);
         mTextViewUsername = view.findViewById(R.id.textViewUsername);
         mCircleImageUser = view.findViewById(R.id.circleImageUser);
+        add_user = view.findViewById(R.id.img_add_user);
+        view_user = view.findViewById(R.id.imgVerIntegrantes);
 
         Picasso.with(ChatMultiActivity.this).load(mChat.getGroupImage()).into(mCircleImageUser);
         mTextViewUsername.setText(mChat.getGroupName());
@@ -533,6 +543,24 @@ public class ChatMultiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        add_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), "Agregar Usuario", Toast.LENGTH_SHORT).show();
+                verIntegrantes=false;
+                goToAddMultiUsers();
+            }
+        });
+
+        view_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                verIntegrantes=true;
+                Log.i("LOG","Ver Integrantes"+verIntegrantes);
+                goToAddMultiUsers();
             }
         });
     }
@@ -621,6 +649,17 @@ public class ChatMultiActivity extends AppCompatActivity {
         }else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorFullBlack));
         }
+    }
+
+    private void goToAddMultiUsers() {
+
+        Intent intent = new Intent(ChatMultiActivity.this, AddMultiUserActivity.class);
+        intent.putExtra("ids",mUsersId);
+        intent.putExtra("id",mChat.getId());
+        if (verIntegrantes == true){
+            intent.putExtra("VerIntegrantes",true);
+        }
+        startActivity(intent);
     }
 
 }

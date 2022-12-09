@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
- 
+
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
@@ -75,6 +75,7 @@ public class ChatActivity extends AppCompatActivity {
     String mExtraIdUser;
     String mExtraIdChat;
 
+
     UsersProvider mUsersProvider;
     AuthProvider mAuthProvider;
     ChatsProvider mChatsProvider;
@@ -89,6 +90,7 @@ public class ChatActivity extends AppCompatActivity {
     // MESSAGE
     EditText mEditextMessage;
     ImageView mImageViewSend;
+    ImageView add_user, viewVerIntegrantes;
     // ==================
 
     ImageView mImageViewSelectFile;
@@ -374,11 +376,11 @@ public class ChatActivity extends AppCompatActivity {
         mChatsProvider.getChatById(mExtraIdChat).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-            if (documentSnapshot != null){
-                if (documentSnapshot.exists()){
-                    mChat = documentSnapshot.toObject(Chat.class);
+                if (documentSnapshot != null){
+                    if (documentSnapshot.exists()){
+                        mChat = documentSnapshot.toObject(Chat.class);
+                    }
                 }
-            }
             }
         });
     }
@@ -465,9 +467,9 @@ public class ChatActivity extends AppCompatActivity {
         mUsersProvider.getUserInfo(mAuthProvider.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-              if (documentSnapshot.exists()){
-                  mMyUser = documentSnapshot.toObject(User.class);
-              }
+                if (documentSnapshot.exists()){
+                    mMyUser = documentSnapshot.toObject(User.class);
+                }
             }
         });
     }
@@ -479,20 +481,20 @@ public class ChatActivity extends AppCompatActivity {
         mUsersProvider.getUserInfo(mExtraIdUser).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                 if (documentSnapshot != null){
-                     if(documentSnapshot.exists()){
-                         //OBTENIENDO LA INFO DEL USUARIO
-                         mUserReceiver = documentSnapshot.toObject(User.class);
-                         mTextViewUsername.setText(mUserReceiver.getUsername());
+                if (documentSnapshot != null){
+                    if(documentSnapshot.exists()){
+                        //OBTENIENDO LA INFO DEL USUARIO
+                        mUserReceiver = documentSnapshot.toObject(User.class);
+                        mTextViewUsername.setText(mUserReceiver.getUsername());
 
-                         //MOSTRAR LA IMAGEN
-                         if (mUserReceiver.getImage() != null){
-                             if (!mUserReceiver.getImage().equals("")){
-                                 Picasso.with(ChatActivity.this).load(mUserReceiver.getImage()).into(mCircleImageUser);
-                             }
-                         }
-                     }
-                 }
+                        //MOSTRAR LA IMAGEN
+                        if (mUserReceiver.getImage() != null){
+                            if (!mUserReceiver.getImage().equals("")){
+                                Picasso.with(ChatActivity.this).load(mUserReceiver.getImage()).into(mCircleImageUser);
+                            }
+                        }
+                    }
+                }
             }
         });
     }
@@ -516,6 +518,11 @@ public class ChatActivity extends AppCompatActivity {
         mImageViewBack = view.findViewById(R.id.imageViewBack);
         mTextViewUsername = view.findViewById(R.id.textViewUsername);
         mCircleImageUser = view.findViewById(R.id.circleImageUser);
+        add_user = view.findViewById(R.id.img_add_user);
+        viewVerIntegrantes = view.findViewById(R.id.imgVerIntegrantes);
+
+        add_user.setVisibility(View.INVISIBLE);
+        viewVerIntegrantes.setVisibility(View.INVISIBLE);
 
         mImageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override

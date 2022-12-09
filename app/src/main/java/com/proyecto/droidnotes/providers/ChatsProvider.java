@@ -12,6 +12,8 @@ import com.google.firebase.firestore.Query;
 import com.proyecto.droidnotes.models.Chat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ChatsProvider {
@@ -27,7 +29,16 @@ public class ChatsProvider {
     // CREANDO LA INFORMACION EN LA BDD
     public Task<Void> create(Chat chat){
         // SE CREARA UN ID UNICO
-            return mCollection.document(chat.getId()).set(chat);
+        return mCollection.document(chat.getId()).set(chat);
+
+    }
+
+    // Actualizar LA INFORMACION EN LA BDD con los nuevos integrantes
+    public Task<Void> update(Chat chat){
+        Map<String, Object> map = new HashMap<>();
+        map.put("ids", chat.getIds());
+
+        return mCollection.document(chat.getId()).update(map);
 
     }
 

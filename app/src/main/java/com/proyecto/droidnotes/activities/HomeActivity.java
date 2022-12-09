@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
         mViewPager = findViewById(R.id.viewPager);
 
 
-    // F R A G M E N T S ===========================================================================
+        // F R A G M E N T S ===========================================================================
         // DEFINIMOS EL NUMERO DE FRAGMENTS
         mViewPager.setOffscreenPageLimit(3);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -101,7 +101,6 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
 
         mAuthProvider = new AuthProvider();
 
-
         createToken();
     }
 
@@ -110,6 +109,9 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
     private void goToAddMultiUsers() {
 
         Intent intent = new Intent(HomeActivity.this, AddMultiUserActivity.class);
+        intent.putExtra("id","");
+        intent.putExtra("group",true);
+        intent.putExtra("VerIntegrantes",false);
         startActivity(intent);
     }
 

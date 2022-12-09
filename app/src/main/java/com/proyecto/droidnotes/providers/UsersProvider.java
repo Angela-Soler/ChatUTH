@@ -10,6 +10,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.proyecto.droidnotes.models.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +29,7 @@ public class UsersProvider {
     //METODO QUE RETORNA LOS DATOS DE UN USUARIO A TRAVES DEL ID
     public DocumentReference getUserInfo(String id)
     {
-      return mCollection.document(id);
+        return mCollection.document(id);
     }
 
     // METODO PARA ORDENAR LA LISTA POR NOMBRE
@@ -35,6 +37,15 @@ public class UsersProvider {
         return mCollection.orderBy("username");
     }
 
+    // METODO PARA ORDENAR LA LISTA POR NOMBRE PERO SIN INCLUIR LOS DEL GRUPO ACTUAL
+    public Query getAllUserAddGroup(ArrayList<String> lista){
+        return mCollection.whereNotIn("id",lista);
+    }
+
+    // METODO PARA ORDENAR LA LISTA POR NOMBRE SOLO LOS DEL GRUPO ACTUAL
+    public Query getAllUserGroup(ArrayList<String> lista){
+        return mCollection.whereIn("id",lista);
+    }
 
     //Metodo que permita almacenar un usuario en la BDD
     public Task<Void> create(User user)

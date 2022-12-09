@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -59,6 +60,8 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
 
     ProgressDialog mDialog;
 
+    Boolean group = false;
+    Boolean verIntegrantes = false;
     // =============================================================================================
 
     @Override
@@ -79,10 +82,28 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
         mDialog.setTitle("Espere un momento");
         mDialog.setMessage("Guardando informacion");
 
+        group = getIntent().getBooleanExtra("group",false);
+        verIntegrantes = getIntent().getBooleanExtra("verIntegrantes",false);
+
+        Log.i("LOG","group"+group.toString());
 
         String chat = getIntent().getStringExtra("chat" );
+        String idChat = getIntent().getStringExtra("idChat" );
         Gson gson = new Gson();
         mExtraChat = gson.fromJson(chat, Chat.class);
+
+
+        if (group == true){
+            mExtraChat.setId(idChat);
+            updateChat(idChat);
+            finish();
+        }
+
+        if (verIntegrantes == true){
+            mExtraChat.setId(idChat);
+            updateChat(idChat);
+            finish();
+        }
 
         mOptions = Options.init()
                 .setRequestCode(100)                                           //Request code for activity results
@@ -114,7 +135,7 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
                 if (!mGroupName.equals("") && mImageFile != null) {
                     saveImage();
                 } else {
-                    Toast.makeText(ConfirmMultiUserChatActivity.this, "Debe de seleccionar la imagen y nombre de usuario", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConfirmMultiUserChatActivity.this, "Debe de seleccionar la imagen y nombre de grupo", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -171,7 +192,20 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
         mChatsProvider.create(mExtraChat).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-             goToHomeActivity();
+                goToHomeActivity();
+            }
+        });
+    }
+
+    private void updateChat(String idChat) {
+        mChatsProvider.update(mExtraChat).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getApplicationContext(),"Usuarios agregados correctamente",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ConfirmMultiUserChatActivity.this, HomeActivity.class);
+                //ELIMINAR EL HISTORIAL DE VISTAS UNA VEZ EL USUARIO INGRESA
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
@@ -206,5 +240,3 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
 
 
 }
-
-    ///////// CIERRE PAGE //////////////////

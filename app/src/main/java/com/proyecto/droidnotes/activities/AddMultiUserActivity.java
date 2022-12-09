@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
 import com.google.gson.Gson;
@@ -43,6 +44,12 @@ public class AddMultiUserActivity extends AppCompatActivity {
 
     ArrayList<User> mUsersSelected;
 
+    ArrayList<String> mUsersId = new ArrayList<>();
+
+    String id_Chat="";
+    Boolean verIntegrantes=false;
+    Boolean crearGrupo=false;
+
     Menu mMenu;
     //////////////////// CIERRE /////////////////////////////////////////
 
@@ -51,14 +58,26 @@ public class AddMultiUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_multi_user);
 
-        MyToolbar.show(AddMultiUserActivity.this, "Añadir Grupo", true);
-
         // INSTANCIAS DE VARIABLES =================================================================
         mFabCheck = findViewById(R.id.fabCheck);
 
         mRecyclerViewContacts = findViewById(R.id.recyclerViewContacts);
         mUsersProvider = new UsersProvider();
         mAuthProvider = new AuthProvider();
+
+        mUsersId = getIntent().getStringArrayListExtra("ids");
+        id_Chat = getIntent().getStringExtra("id");
+        verIntegrantes = getIntent().getBooleanExtra("VerIntegrantes",false);
+        crearGrupo = getIntent().getBooleanExtra("group",false);
+
+        Log.i("LOG","Crear Grupo: "+ crearGrupo);
+
+        if (verIntegrantes==true){
+            MyToolbar.show(AddMultiUserActivity.this, "Integrantes Grupo", true);
+        }else{
+            MyToolbar.show(AddMultiUserActivity.this, "Añadir Grupo", true);
+        }
+
 
         // ==========================================================================================
 
@@ -72,13 +91,23 @@ public class AddMultiUserActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (mUsersSelected != null){
-                    if (mUsersSelected.size() >= 2){
-                        createChat();
-                    }else{
-                        Toast.makeText(AddMultiUserActivity.this, "Seleccione al menos 2 usuarios", Toast.LENGTH_SHORT).show();
+//||(mUsersSelected.size() >= 1 && mUsersId.size()>0)
+                    if (id_Chat.equals("")) {
+                        if (mUsersSelected.size() >= 2) {
+                            createChat();
+                        } else {
+                            Toast.makeText(AddMultiUserActivity.this, "Seleccione al menos 2 usuarios", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (!id_Chat.equals("")) {
+                        if (mUsersSelected.size() >= 1) {
+                            createChat();
+                        } else {
+                            Toast.makeText(AddMultiUserActivity.this, "Seleccione al menos 1 usuario", Toast.LENGTH_SHORT).show();
+                        }
                     }
+
                 }else{
-                    Toast.makeText(AddMultiUserActivity.this, "Por favor seleccione los usuarios ;)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddMultiUserActivity.this, "Debe agregar usuarios", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -87,28 +116,45 @@ public class AddMultiUserActivity extends AppCompatActivity {
 
 
     private void createChat(){
+
+
         Random random = new Random();
         int n = random.nextInt(100000);
         Chat chat = new Chat();
-        chat.setId(UUID.randomUUID().toString());
-        chat.setTimestamp(new Date().getTime());
-        chat.setIdNotification(n);
-        chat.setMultichat(true);
-
 
         ArrayList<String> ids = new ArrayList<>();
-        ids.add(mAuthProvider.getId());
+
+        if (id_Chat.equals("")) {//Se agregan todos los campos si es creacion de nuevo grupo, de
+            chat.setId(UUID.randomUUID().toString()); //lo contrario solo se actualizan los ids
+            chat.setTimestamp(new Date().getTime());
+            chat.setIdNotification(n);
+            chat.setMultichat(true);
+            ids.add(mAuthProvider.getId());
+        }else{
+            ids = mUsersId;
+        }
 
         for (User u: mUsersSelected){
             ids.add(u.getId());
+
         }
 
         chat.setIds(ids);
+        Log.i("LOG","User: "+chat.getIds());
         Gson gson = new Gson();
         String  chatJSON = gson.toJson(chat);
 
         Intent intent = new Intent(AddMultiUserActivity.this, ConfirmMultiUserChatActivity.class);
         intent.putExtra("chat", chatJSON);
+        if(crearGrupo==true){
+            intent.putExtra("group", false);
+        }else{
+            intent.putExtra("group", true);
+        }
+        intent.putExtra("idChat", id_Chat);
+        if (verIntegrantes == true){
+            intent.putExtra("VerIntegrantes",true);
+        }
         startActivity(intent);
 
     }
@@ -138,7 +184,21 @@ public class AddMultiUserActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // CONSULTA A LA BASE DE DATOS
-        Query query = mUsersProvider.getAllUserByname();
+        Query query = null;
+
+        try{
+            if (!(id_Chat.equals("")) && !verIntegrantes){
+                query = mUsersProvider.getAllUserAddGroup(mUsersId);
+            }else if (!(id_Chat.equals(""))  && verIntegrantes){
+                query = mUsersProvider.getAllUserGroup(mUsersId);
+            }else{
+                query = mUsersProvider.getAllUserByname();
+            }
+        }catch (Exception e){
+            Log.i("LOG",e.getMessage());
+            Toast.makeText(getApplicationContext(), "No se pudo mostrar los contactos",Toast.LENGTH_SHORT).show();
+        }
+
         FirestoreRecyclerOptions<User> options = new FirestoreRecyclerOptions.Builder<User>()
                 .setQuery(query, User.class)
                 .build();
