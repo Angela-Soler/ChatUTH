@@ -549,6 +549,9 @@ public class ChatActivity extends AppCompatActivity {
 
             intent.putExtra("myUser", myUserJSON);
             intent.putExtra("receiverUser", receiverUserJSON);
+
+            Log.i("LOG", "ReceiverJson"+receiverUserJSON);
+
             intent.putExtra("idNotification", String.valueOf(mChat.getIdNotification()));
             startActivity(intent);
         }

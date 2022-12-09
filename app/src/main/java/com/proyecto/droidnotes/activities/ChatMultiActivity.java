@@ -574,14 +574,27 @@ public class ChatMultiActivity extends AppCompatActivity {
             Intent intent = new Intent(ChatMultiActivity.this, ConfirmImageSendActivity.class);
             intent.putExtra("data", mReturnValues);
             intent.putExtra("idChat", mChat.getId());
+            Log.i("LOG","Receiver"+mExtraIdUser);
             intent.putExtra("idReceiver", mExtraIdUser);
+            //mReceivers
 
             Gson gson = new Gson();
             String myUserJSON = gson.toJson(mMyUser);
 
             intent.putExtra("myUser", myUserJSON);
+            String receiverUserJSON = gson.toJson(mReceivers);
+
+            Log.i("LOG", "ReceiverJson"+receiverUserJSON);
+
+            ArrayList<Message> messages = new ArrayList<>();
+            sendNotification(messages);
+
+            intent.putExtra("myUser", myUserJSON);
+           // intent.putExtra("receiverUser", receiverUserJSON);
             intent.putExtra("idNotification", String.valueOf(mChat.getIdNotification()));
             startActivity(intent);
+
+
         }
 
         if (requestCode == ACTION_FILE && resultCode == RESULT_OK)

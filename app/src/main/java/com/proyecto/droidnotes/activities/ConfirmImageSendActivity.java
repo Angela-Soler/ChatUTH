@@ -46,6 +46,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
     AuthProvider mAuthProvider;
     ChatsProvider mChatProvier;
     NotificationProvider mNotificationProvider;
+    String receiverUser = "";
     // ============================================================================================
 
     @Override
@@ -67,8 +68,8 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         mNotificationProvider = new NotificationProvider();
         // ========================================================================================
         String myUser = getIntent().getStringExtra("myUser");
-        String receiverUser = getIntent().getStringExtra("receiverUser");
-
+        receiverUser = getIntent().getStringExtra("receiverUser");
+        Log.i("LOG", "Receiver "+receiverUser);
         Gson gson = new Gson();
         mExtraMyUser = gson.fromJson(myUser, User.class);
         mExtraReceiverUser = gson.fromJson(receiverUser, User.class);
@@ -153,15 +154,32 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         data.put("title", "MENSAJE");
         data.put("body", "texto mensaje");
         data.put("idNotification", String.valueOf(mExtraIdNotification));
-        data.put("usernameReceiver", mExtraReceiverUser.getUsername());
+
+        if (receiverUser==null)
+            data.put("usernameReceiver", "");
+        else
+            data.put("usernameReceiver", mExtraReceiverUser.getUsername());
+        if (receiverUser==null)
+            data.put("imageReceiver", "");
+        else
+            data.put("imageReceiver", mExtraReceiverUser.getImage());
+
         data.put("usernameSender", mExtraMyUser.getUsername());
-        data.put("imageReceiver", mExtraReceiverUser.getImage());
         data.put("imageSender", mExtraMyUser.getImage());
         data.put("idChat", mExtraIdChat);
         data.put("idSender", mAuthProvider.getId());
-        data.put("idReceiver", mExtraIdReceiver);
+
+        if (receiverUser==null)
+            data.put("idReceiver", "");
+        else
+            data.put("idReceiver", mExtraIdReceiver);
+
         data.put("tokenSender", mExtraMyUser.getToken());
-        data.put("tokenReceiver", mExtraReceiverUser.getToken());
+
+        if (receiverUser==null)
+            data.put("tokenReceiver", "");
+        else
+            data.put("tokenReceiver", mExtraReceiverUser.getToken());
 
 
         // CONVERTIR A UN OBJETO JSON
@@ -170,7 +188,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         data.put("messagesJSON", messagesJSON);
 
         List<String> tokens = new ArrayList<>();
-        tokens.add(mExtraReceiverUser.getToken());
+//        tokens.add(mExtraReceiverUser.getToken());
 
         mNotificationProvider.send(ConfirmImageSendActivity.this, tokens, data);
     }
