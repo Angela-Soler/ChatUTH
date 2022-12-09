@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -81,6 +82,25 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
         // METODO PARA INCLUIR NUESTRO MENU / CIERRE DE SESION
         mSearchBar.setOnSearchActionListener(this);
         mSearchBar.inflateMenu(R.menu.main_menu);
+
+        mSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+            @Override
+            public void onSearchStateChanged(boolean enabled) {
+                Toast.makeText(getApplicationContext(), mSearchBar.getText(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSearchConfirmed(CharSequence text) {
+                Toast.makeText(getApplicationContext(), mSearchBar.getText(), Toast.LENGTH_SHORT).show();
+                mChatsFragment.onStart2(mSearchBar.getText());
+            }
+
+            @Override
+            public void onButtonClicked(int buttonCode) {
+
+            }
+        });
+
         mSearchBar.getMenu().setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -154,7 +174,7 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
     // METODOS QUE NECESITAMOS PARA TRABAJAR CON EL SEACHBAR ----------
     @Override
     public void onSearchStateChanged(boolean enabled) {
-
+        Toast.makeText(getApplicationContext(), mSearchBar.getText(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
