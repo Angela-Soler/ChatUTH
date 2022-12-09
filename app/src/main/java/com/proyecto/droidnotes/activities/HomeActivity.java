@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -98,6 +100,14 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
             @Override
             public void onButtonClicked(int buttonCode) {
 
+            }
+        });
+
+        mSearchBar.getSearchEditText().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Toast.makeText(getApplicationContext(), mSearchBar.getText(), Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
 

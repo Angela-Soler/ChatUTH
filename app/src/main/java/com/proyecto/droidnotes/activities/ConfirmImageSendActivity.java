@@ -47,6 +47,8 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
     ChatsProvider mChatProvier;
     NotificationProvider mNotificationProvider;
     String receiverUser = "";
+
+    List<String> tokens_id = new ArrayList<>();
     // ============================================================================================
 
     @Override
@@ -69,11 +71,11 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         // ========================================================================================
         String myUser = getIntent().getStringExtra("myUser");
         receiverUser = getIntent().getStringExtra("receiverUser");
-        Log.i("LOG", "Receiver "+receiverUser);
+        tokens_id = getIntent().getStringArrayListExtra("tokens");
+        Log.i("LOG", "Tokens "+receiverUser);
         Gson gson = new Gson();
         mExtraMyUser = gson.fromJson(myUser, User.class);
         mExtraReceiverUser = gson.fromJson(receiverUser, User.class);
-
 
         // INCLUYE EN messages TODOS LOS MENSAJES QUE SE ALMACENARIAN EN LA BDD
         if (data != null){
@@ -88,7 +90,6 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
 
                 // URL DE LA IMAGEN QUE SELECCIONAMOS DESDE EL CELULAR
                 m.setUrl(data.get(i));
-
 
                 if (ExtensionFile.isImageFile(data.get(i))){
                     m.setType("imagen");
@@ -188,6 +189,12 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         data.put("messagesJSON", messagesJSON);
 
         List<String> tokens = new ArrayList<>();
+
+        if (receiverUser==null){
+            tokens = tokens_id;
+        }else{
+            tokens.add(mExtraReceiverUser.getToken());
+        }
 //        tokens.add(mExtraReceiverUser.getToken());
 
         mNotificationProvider.send(ConfirmImageSendActivity.this, tokens, data);
