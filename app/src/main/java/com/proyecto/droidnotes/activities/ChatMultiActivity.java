@@ -606,6 +606,7 @@ public class ChatMultiActivity extends AppCompatActivity {
             Intent intent = new Intent(ChatMultiActivity.this, ConfirmImageSendActivity.class);
             intent.putExtra("data", mReturnValues);
             intent.putExtra("idChat", mChat.getId());
+            intent.putExtra("group_name", mChat.getGroupName());
             Log.i("LOG","Receiver"+mExtraIdUser);
             intent.putExtra("idReceiver", mExtraIdUser);
             Gson gson = new Gson();

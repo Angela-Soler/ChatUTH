@@ -47,7 +47,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
     ChatsProvider mChatProvier;
     NotificationProvider mNotificationProvider;
     String receiverUser = "";
-
+    String group_name = "";
     List<String> tokens_id = new ArrayList<>();
     // ============================================================================================
 
@@ -63,6 +63,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
 
         data = getIntent().getStringArrayListExtra("data");
         mExtraIdChat = getIntent().getStringExtra("idChat");
+        group_name = getIntent().getStringExtra("group_name");
         mExtraIdReceiver = getIntent().getStringExtra("idReceiver");
         mExtraIdNotification = getIntent().getStringExtra("idNotification");
         mImageProvider = new ImageProvider();
@@ -94,11 +95,11 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
                 if (ExtensionFile.isImageFile(data.get(i))){
                     m.setType("imagen");
                     // MENSAJE POR DEFECTO
-                    m.setMessage("\uD83D\uDCF7imagen");
+                    m.setMessage("\uD83D\uDCF7 imagen");
                 }else  if (ExtensionFile.isVideoFile(data.get(i))){
                     m.setType("video");
                     // MENSAJE POR DEFECTO
-                    m.setMessage("\uD83C\uDFA5video");
+                    m.setMessage("\uD83C\uDFA5 video");
                 }
 
                 messages.add(m);
@@ -165,7 +166,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         else
             data.put("imageReceiver", mExtraReceiverUser.getImage());
 
-        data.put("usernameSender", mExtraMyUser.getUsername());
+        data.put("usernameSender", group_name+"\n"+mExtraMyUser.getUsername());
         data.put("imageSender", mExtraMyUser.getImage());
         data.put("idChat", mExtraIdChat);
         data.put("idSender", mAuthProvider.getId());
