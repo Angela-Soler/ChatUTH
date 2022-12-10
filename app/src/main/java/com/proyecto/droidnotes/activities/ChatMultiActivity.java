@@ -422,7 +422,6 @@ public class ChatMultiActivity extends AppCompatActivity {
 
         for (User u: mReceivers){
             tokens.add(u.getToken());
-
         }
 
         mNotificationProvider.send(ChatMultiActivity.this, tokens, data);
@@ -602,6 +601,8 @@ public class ChatMultiActivity extends AppCompatActivity {
                 tokens.add(u.getToken());
             }
 
+            Log.i("LOG", "TOKEN_CHATMULTI: "+tokens);
+
             Intent intent = new Intent(ChatMultiActivity.this, ConfirmImageSendActivity.class);
             intent.putExtra("data", mReturnValues);
             intent.putExtra("idChat", mChat.getId());
@@ -618,7 +619,7 @@ public class ChatMultiActivity extends AppCompatActivity {
             intent.putExtra("myUser", myUserJSON);
          //   intent.putExtra("receiverUser", receiverUserJSON);
             intent.putExtra("idNotification", String.valueOf(mChat.getIdNotification()));
-            intent.putExtra("tokens", String.valueOf(tokens));
+            intent.putStringArrayListExtra("tokens", (ArrayList<String>) tokens);
             startActivity(intent);
         }
 
