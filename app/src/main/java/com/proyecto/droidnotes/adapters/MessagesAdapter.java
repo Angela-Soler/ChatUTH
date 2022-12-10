@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -188,6 +189,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
                     Intent intent = new Intent(context, ShowImageOrVideoActivity.class);
                     intent.putExtra("type", message.getType());
                     intent.putExtra("url", message.getUrl());
+                    Log.i("LOG", "INTENT"+message.getType());
                     context.startActivity(intent);
                 }
             }
