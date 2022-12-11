@@ -34,7 +34,7 @@ public class ImageProvider {
     // VARIABLE GLOBALES ==========================================================================
     StorageReference mStorage;
     FirebaseStorage mFirebaseStorage;
-    int index;
+    int index=0;
     MessagesProvider mMessageProvider;
     StatusProvider mStatusProvider;
     DatabaseReference myRef;
@@ -86,7 +86,7 @@ public class ImageProvider {
 
         // CREAMOS EL ARCHIVOS DEPENDIENDO SI ES IMAGEN O VIDEO
         if (ExtensionFile.isImageFile(messages.get(index).getUrl())){
-            file = CompressorBitmapImage.reduceImageSize(new File(messages.get(index).getUrl()));
+            file = new File(messages.get(index).getUrl()); //CompressorBitmapImage.reduceImageSize(new File(messages.get(index).getUrl()));
         }
         else {
             file = new File(messages.get(index).getUrl());
@@ -137,7 +137,7 @@ public class ImageProvider {
     public void uploadMultipleStatus(final Context context, final ArrayList<Status> statusList) {
 
         Uri[] uri = new Uri[statusList.size()];
-        File file = CompressorBitmapImage.reduceImageSize(new File(statusList.get(index).getUrl()));
+        File file = new File(statusList.get(index).getUrl()); //CompressorBitmapImage.reduceImageSize(new File(statusList.get(index).getUrl()));
 
         uri[index] = Uri.parse("file://" + file.getPath());
         final StorageReference ref = mStorage.child(uri[index].getLastPathSegment());

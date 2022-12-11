@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -42,7 +43,10 @@ public class ShowImageOrVideoActivity extends AppCompatActivity {
         mView = findViewById(R.id.viewVideo);
 
         mExtraType = getIntent().getStringExtra("type");
+        Log.i("LOG","Extratype"+mExtraType);
         mExtraUrl = getIntent().getStringExtra("url");
+
+        Log.i("LOG","URL"+mExtraUrl);
         // CIERRE INSTANCIAS ///////////////////////////////////////////////
 
 

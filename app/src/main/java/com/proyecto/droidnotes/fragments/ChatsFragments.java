@@ -82,6 +82,21 @@ public class ChatsFragments extends Fragment {
     }
 
 
+    public void onStart2(String dato) {
+        super.onStart();
+        // CONSULTA A LA BASE DE DATOS
+        Query query = mChatsProvider.getUserChats(mAuthProvider.getId()).orderBy("timestamp");
+        FirestoreRecyclerOptions<Chat> options = new FirestoreRecyclerOptions.Builder<Chat>()
+                .setQuery(query, Chat.class)
+                .build();
+
+        mAdapter = new ChatsAdapter(options, getContext());
+        mRecyclerViewChats.setAdapter(mAdapter);
+        // QUE EL ADAPTER ESCUCHE LOS CAMBIOS EN TIEMPO REAL
+        mAdapter.startListening();
+    }
+
+
     // DETENER EL METODO ONSTART
     @Override
     public void onStop() {

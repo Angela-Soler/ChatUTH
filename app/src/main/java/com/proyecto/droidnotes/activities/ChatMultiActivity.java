@@ -5,15 +5,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,6 +53,8 @@ import com.proyecto.droidnotes.providers.NotificationProvider;
 import com.proyecto.droidnotes.providers.UsersProvider;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -77,6 +83,10 @@ public class ChatMultiActivity extends AppCompatActivity {
     TextView mTextViewUsername;
     CircleImageView mCircleImageUser;
 
+    static final int REQUESTCAMERA = 101;
+    static final int TAKEFOTO = 102;
+    static final int GALERIA = 1;
+
     ActionBar actionBar;
 
     // MESSAGE
@@ -88,6 +98,7 @@ public class ChatMultiActivity extends AppCompatActivity {
     ImageView mImageViewSelectPictures;
 
     // NOTIFICACIONES
+    User mUserReceiver;
     User mMyUser;
     // ==============
 
@@ -208,7 +219,8 @@ public class ChatMultiActivity extends AppCompatActivity {
         mImageViewSelectPictures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startPix();
+                permisosFoto();
+
             }
         });
 
@@ -219,6 +231,17 @@ public class ChatMultiActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void permisosFoto() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) !=
+                PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUESTCAMERA);
+        } else {
+            startPix();
+        }
     }
 
     private void getReceiversInfo() {
@@ -379,7 +402,7 @@ public class ChatMultiActivity extends AppCompatActivity {
         data.put("body", "texto mensaje");
         data.put("idNotification", String.valueOf(mChat.getIdNotification()));
         data.put("usernameReceiver", "");
-        data.put("usernameSender", mMyUser.getUsername());
+        data.put("usernameSender", mChat.getGroupName()+"\n"+ mMyUser.getUsername());
         data.put("imageReceiver", "");
         data.put("imageSender", mMyUser.getImage());
         data.put("idChat", mExtraIdChat);
@@ -388,6 +411,7 @@ public class ChatMultiActivity extends AppCompatActivity {
         data.put("tokenSender", mMyUser.getToken());
         data.put("tokenReceiver", "");
 
+        Log.i("LOG","Name: "+mChat.getGroupName()+"\n"+ mMyUser.getUsername());
 
         // CONVERTIR A UN OBJETO JSON
         Gson gson = new Gson();
@@ -398,8 +422,8 @@ public class ChatMultiActivity extends AppCompatActivity {
 
         for (User u: mReceivers){
             tokens.add(u.getToken());
-
         }
+
         mNotificationProvider.send(ChatMultiActivity.this, tokens, data);
     }
 
@@ -571,16 +595,32 @@ public class ChatMultiActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == 100) {
             mReturnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+
+            List<String> tokens = new ArrayList<>();
+            for (User u: mReceivers){
+                tokens.add(u.getToken());
+            }
+
+            Log.i("LOG", "TOKEN_CHATMULTI: "+tokens);
+
             Intent intent = new Intent(ChatMultiActivity.this, ConfirmImageSendActivity.class);
             intent.putExtra("data", mReturnValues);
             intent.putExtra("idChat", mChat.getId());
+            intent.putExtra("group_name", mChat.getGroupName());
+            Log.i("LOG","Receiver"+mExtraIdUser);
             intent.putExtra("idReceiver", mExtraIdUser);
-
             Gson gson = new Gson();
             String myUserJSON = gson.toJson(mMyUser);
 
             intent.putExtra("myUser", myUserJSON);
+            String receiverUserJSON = gson.toJson(mReceivers);
+
+            Log.i("LOG", "ReceiverJson"+receiverUserJSON);
+
+            intent.putExtra("myUser", myUserJSON);
+         //   intent.putExtra("receiverUser", receiverUserJSON);
             intent.putExtra("idNotification", String.valueOf(mChat.getIdNotification()));
+            intent.putStringArrayListExtra("tokens", (ArrayList<String>) tokens);
             startActivity(intent);
         }
 

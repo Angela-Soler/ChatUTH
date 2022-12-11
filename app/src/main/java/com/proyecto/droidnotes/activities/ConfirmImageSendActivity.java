@@ -46,6 +46,9 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
     AuthProvider mAuthProvider;
     ChatsProvider mChatProvier;
     NotificationProvider mNotificationProvider;
+    String receiverUser = "";
+    String group_name = "";
+    List<String> tokens_id = new ArrayList<>();
     // ============================================================================================
 
     @Override
@@ -60,6 +63,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
 
         data = getIntent().getStringArrayListExtra("data");
         mExtraIdChat = getIntent().getStringExtra("idChat");
+        group_name = getIntent().getStringExtra("group_name");
         mExtraIdReceiver = getIntent().getStringExtra("idReceiver");
         mExtraIdNotification = getIntent().getStringExtra("idNotification");
         mImageProvider = new ImageProvider();
@@ -67,12 +71,12 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         mNotificationProvider = new NotificationProvider();
         // ========================================================================================
         String myUser = getIntent().getStringExtra("myUser");
-        String receiverUser = getIntent().getStringExtra("receiverUser");
-
+        receiverUser = getIntent().getStringExtra("receiverUser");
+        tokens_id = getIntent().getStringArrayListExtra("tokens");
+        Log.i("LOG", "Tokens "+receiverUser);
         Gson gson = new Gson();
         mExtraMyUser = gson.fromJson(myUser, User.class);
         mExtraReceiverUser = gson.fromJson(receiverUser, User.class);
-
 
         // INCLUYE EN messages TODOS LOS MENSAJES QUE SE ALMACENARIAN EN LA BDD
         if (data != null){
@@ -88,15 +92,14 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
                 // URL DE LA IMAGEN QUE SELECCIONAMOS DESDE EL CELULAR
                 m.setUrl(data.get(i));
 
-
                 if (ExtensionFile.isImageFile(data.get(i))){
                     m.setType("imagen");
                     // MENSAJE POR DEFECTO
-                    m.setMessage("\uD83D\uDCF7imagen");
+                    m.setMessage("\uD83D\uDCF7 imagen");
                 }else  if (ExtensionFile.isVideoFile(data.get(i))){
                     m.setType("video");
                     // MENSAJE POR DEFECTO
-                    m.setMessage("\uD83C\uDFA5video");
+                    m.setMessage("\uD83C\uDFA5 video");
                 }
 
                 messages.add(m);
@@ -153,15 +156,32 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         data.put("title", "MENSAJE");
         data.put("body", "texto mensaje");
         data.put("idNotification", String.valueOf(mExtraIdNotification));
-        data.put("usernameReceiver", mExtraReceiverUser.getUsername());
-        data.put("usernameSender", mExtraMyUser.getUsername());
-        data.put("imageReceiver", mExtraReceiverUser.getImage());
+
+        if (receiverUser==null)
+            data.put("usernameReceiver", "");
+        else
+            data.put("usernameReceiver", mExtraReceiverUser.getUsername());
+        if (receiverUser==null)
+            data.put("imageReceiver", "");
+        else
+            data.put("imageReceiver", mExtraReceiverUser.getImage());
+
+        data.put("usernameSender", group_name+"\n"+mExtraMyUser.getUsername());
         data.put("imageSender", mExtraMyUser.getImage());
         data.put("idChat", mExtraIdChat);
         data.put("idSender", mAuthProvider.getId());
-        data.put("idReceiver", mExtraIdReceiver);
+
+        if (receiverUser==null)
+            data.put("idReceiver", "");
+        else
+            data.put("idReceiver", mExtraIdReceiver);
+
         data.put("tokenSender", mExtraMyUser.getToken());
-        data.put("tokenReceiver", mExtraReceiverUser.getToken());
+
+        if (receiverUser==null)
+            data.put("tokenReceiver", "");
+        else
+            data.put("tokenReceiver", mExtraReceiverUser.getToken());
 
 
         // CONVERTIR A UN OBJETO JSON
@@ -170,7 +190,13 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         data.put("messagesJSON", messagesJSON);
 
         List<String> tokens = new ArrayList<>();
-        tokens.add(mExtraReceiverUser.getToken());
+
+        if (receiverUser==null){
+            tokens = tokens_id;
+        }else{
+            tokens.add(mExtraReceiverUser.getToken());
+        }
+//        tokens.add(mExtraReceiverUser.getToken());
 
         mNotificationProvider.send(ConfirmImageSendActivity.this, tokens, data);
     }

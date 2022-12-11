@@ -81,9 +81,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Este nombre sera visible para tus contactos de DroidNotes"
-                    android:textSize="12dp"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_marginTop="5dp"
+                    android:text="Usuario Visible para Chat UTH"
+                    android:textSize="12dp" />
 
             </LinearLayout>
 
@@ -136,9 +136,9 @@
                     android:id="@+id/textViewInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Estoy usando DroidNotes"
+                    android:text="Estoy usando Chat UTH"
                     android:textColor="@color/colorBlack"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp" />
 
             </LinearLayout>
 

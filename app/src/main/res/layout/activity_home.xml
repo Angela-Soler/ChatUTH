@@ -21,17 +21,17 @@
                 android:id="@+id/searchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mt_hint="Texto de busqueda"
-                app:mt_textColor="@color/colorGray"
-                app:mt_hintColor="@color/colorGray"
                 app:mt_backIconTint="@color/colorGray"
-                app:mt_menuIconTint="@color/colorGray"
+                app:mt_hint="Texto de busqueda"
+                app:mt_hintColor="@color/black"
                 app:mt_leftTextSelectorTint="@color/white"
-                app:mt_searchBarColor="@color/colorPrimary"
+                app:mt_menuIconTint="@color/colorGray"
+                app:mt_menuIconUseTint="@color/white"
                 app:mt_placeholder="CHAT UTH"
                 app:mt_placeholderColor="@color/white"
+                app:mt_searchBarColor="@color/colorPrimary"
                 app:mt_searchIconTint="@color/white"
-                app:mt_menuIconUseTint="@color/white"/>
+                app:mt_textColor="@color/colorGray" />
 
         </LinearLayout>
 
