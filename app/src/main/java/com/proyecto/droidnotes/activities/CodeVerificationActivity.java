@@ -116,8 +116,8 @@ public class CodeVerificationActivity extends AppCompatActivity {
             Toast.makeText(CodeVerificationActivity.this, "Se produjo un error, ingrese un numero de celular Valido: "+mExtraPhone + e.getMessage(), Toast.LENGTH_LONG).show();
             Log.i("LOG",e.getMessage());
             // SI EL CELULAR ES INCORRECTO REGRESARA AL MAIN ACTIVITY
-            Intent intent = new Intent(CodeVerificationActivity.this, MainActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(CodeVerificationActivity.this, MainActivity.class);
+            startActivity(intent);*/
         }
 
         //Metodo para obtener la variable verificationId
