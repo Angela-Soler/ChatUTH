@@ -227,7 +227,7 @@ public class ChatMultiActivity extends AppCompatActivity {
         mImageViewSelectFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectFiles();
+                PermisosDoc();
             }
         });
 
@@ -278,11 +278,19 @@ public class ChatMultiActivity extends AppCompatActivity {
                         "text/plain",
                         "application/pdf",
                         "application/zip"};
+        Intent intent;
 
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-
+        Log.i("LOG B",Build.VERSION.SDK_INT+"");
+        if (Build.VERSION.SDK_INT < 19) {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        }else
+        {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             intent.setType(mimeTypes.length == 1 ? mimeTypes[0] : "*/*");
             if (mimeTypes.length > 0) {
@@ -700,6 +708,16 @@ public class ChatMultiActivity extends AppCompatActivity {
             intent.putExtra("VerIntegrantes",true);
         }
         startActivity(intent);
+    }
+
+    private void PermisosDoc() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) !=
+                PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, ACTION_FILE);
+        }else{
+            selectFiles();
+        }
     }
 
 }

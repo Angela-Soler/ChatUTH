@@ -1,10 +1,14 @@
 package com.proyecto.droidnotes.providers;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,42 +36,42 @@ public class FilesProvider {
 
 
     // METODO QUE NOS PERMITA GUARDAR LOS ARCHIVOS
-    public void saveFiles(final Context context, ArrayList<Uri> files,final String idChat, final String idReceiver){
+    public void saveFiles(final Context context, ArrayList<Uri> files,final String idChat, final String idReceiver)
+    {
 
-        for (int i = 0; i < files.size(); i++){
-            final Uri f = files.get(i);
-            final StorageReference ref = mStorage.child(FileUtil.getFileName(context, f));
-            ref.putFile(f).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()){
-                       ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                           @Override
-                           public void onSuccess(Uri uri) {
-                            String url = uri.toString();
-                               Message message = new Message();
-                               message.setIdChat(idChat);
-                               message.setIdReceiver(idReceiver);
-                               message.setIdSender(mAuthProvider.getId());
-                               message.setType("documento");
-                               message.setUrl(url);
-                               message.setStatus("ENVIADO");
-                               message.setTimestamp(new Date().getTime());
-                               // MENSAJE POR DEFECTO
-                               message.setMessage(FileUtil.getFileName(context, f));
+            for (int i = 0; i < files.size(); i++) {
+                final Uri f = files.get(i);
+                final StorageReference ref = mStorage.child(FileUtil.getFileName(context, f));
+                ref.putFile(f).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String url = uri.toString();
+                                    Message message = new Message();
+                                    message.setIdChat(idChat);
+                                    message.setIdReceiver(idReceiver);
+                                    message.setIdSender(mAuthProvider.getId());
+                                    message.setType("documento");
+                                    message.setUrl(url);
+                                    message.setStatus("ENVIADO");
+                                    message.setTimestamp(new Date().getTime());
+                                    // MENSAJE POR DEFECTO
+                                    message.setMessage(FileUtil.getFileName(context, f));
 
-                               mMessageProvider.create(message);
-                           }
-                       });
+                                    mMessageProvider.create(message);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(context, "No se pudo guardar el archivo", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    else {
-                        Toast.makeText(context, "No se pudo guardar el archivo", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
+                });
+            }
+
 
     }
-
 
 }

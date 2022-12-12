@@ -4,4 +4,8 @@
     <item
         android:id="@+id/Eliminar"
         android:title="Eliminar Mensaje" />
+    <item
+        android:id="@+id/verArchivoPDF"
+        android:title="Ver archivo"
+        android:visible="false" />
 </menu>

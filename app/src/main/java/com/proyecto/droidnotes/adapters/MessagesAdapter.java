@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,12 +26,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.common.util.IOUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.storage.StorageReference;
 import com.proyecto.droidnotes.R;
 import com.proyecto.droidnotes.activities.ShowImageOrVideoActivity;
+import com.proyecto.droidnotes.activities.Visor_Pdf_Activity;
 import com.proyecto.droidnotes.models.Message;
 import com.proyecto.droidnotes.models.User;
 import com.proyecto.droidnotes.providers.AuthProvider;
@@ -39,6 +43,8 @@ import com.proyecto.droidnotes.utils.RelativeTime;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesAdapter.ViewHolder> {
 
@@ -52,6 +58,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
 
     //Firebase
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+
 
     //CREAMOS CONSTRUCTOR PARA LA CLASE PRINCIPAL
     public MessagesAdapter(FirestoreRecyclerOptions options, Context context)
@@ -138,25 +145,53 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
         openMessage(holder, message);
 
         holder.textViewMessage.setOnClickListener(new View.OnClickListener() {
+            //MenuInflater inflater = getMenuInflater();
+            //inflater.inflate(R.menu.main_menu, menu);
+            //MenuItem shareItem = menu.findItem(R.id.menu_action_share); // show the button when some condition is true
+            // if (someCondition) {
+            // shareItem.setVisible(true);
+            // }
             @Override
             public void onClick(View view) {
-                      if (authProvider.getId().toString().equalsIgnoreCase(message.getIdSender().toString())){
+
                           PopupMenu pp = new PopupMenu(context,holder.textViewMessage);
                           pp.getMenuInflater().inflate(R.menu.menu_mensajes, pp.getMenu());
+                          MenuItem verArchivo = pp.getMenu().findItem(R.id.verArchivoPDF);
+                          MenuItem eliminarArchivo = pp.getMenu().findItem(R.id.Eliminar);
+                            if (authProvider.getId().toString().equalsIgnoreCase(message.getIdSender().toString())) {
+                                eliminarArchivo.setVisible(true);
+                            }else
+                            {
+                                eliminarArchivo.setVisible(false);
+                            }
+                              if(message.getType().equalsIgnoreCase("documento")){
+                                  verArchivo.setVisible(true);
+                              }
+
                           pp.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                               @Override
                               public boolean onMenuItemClick(MenuItem menuItem) {
+
                                   switch (menuItem.getItemId()) {
                                       case R.id.Eliminar:
                                           //Toast.makeText(context, "Hola " + holder.textViewMessage.getText() + "Msj id:" + message.getId(), Toast.LENGTH_SHORT).show();
                                           mostrarAlerta("¿Desea eliminar el mensaje",message.getId(),"D");
+                                          return true;
+                                      case R.id.verArchivoPDF:
+                                          //Toast.makeText(context, "Hola " + holder.textViewMessage.getText() + "Msj id:" + message.getId(), Toast.LENGTH_SHORT).show();
+                                          Toast.makeText(context, "Abriendo archivo...", Toast.LENGTH_LONG).show();
+                                          Intent intent = new Intent(Intent.ACTION_VIEW);
+                                          intent.setType("application/pdf");
+                                          intent.setData(Uri.parse(message.getUrl()));
+                                          intent.putExtra("url", message.getUrl());
+                                          context.startActivity(intent);
                                           return true;
                                   }
                                   return false;
                               }
                           });
                           pp.show();
-                      }
+
 
             }
         });
@@ -225,7 +260,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
                     Picasso.with(context).load(message.getUrl()).into(holder.imageViewMessage);
 
                     if (message.getMessage().equals("\uD83C\uDFA5video")){
-                        holder.textViewMessage.setVisibility(View.GONE);
+                        holder.textViewMessage.setVisibility(View.VISIBLE);
 
                         ViewGroup.MarginLayoutParams marginDate = (ViewGroup.MarginLayoutParams) holder.textViewDate.getLayoutParams();
                         ViewGroup.MarginLayoutParams marginCheck = (ViewGroup.MarginLayoutParams) holder.imageViewCheck.getLayoutParams();
@@ -384,5 +419,9 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
                 Toast.makeText(context, "No se pudo eliminar.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void verPDF(){
+
     }
 }
