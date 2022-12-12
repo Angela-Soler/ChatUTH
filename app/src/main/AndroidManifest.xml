@@ -94,9 +94,6 @@
             android:name="com.proyecto.droidnotes.activities.CompleteInfoActivity"
             android:exported="false" />
         <activity
-            android:name="com.proyecto.droidnotes.activities.CodeVerificationActivity"
-            android:exported="false" />
-        <activity
             android:name="com.proyecto.droidnotes.activities.RegisterActivity"
             android:exported="true">
             <intent-filter>
@@ -108,9 +105,6 @@
         <activity
             android:name="com.proyecto.droidnotes.activities.NuevoRegistroActivity"
             android:exported="false" />
-        <activity
-            android:name="com.proyecto.droidnotes.activities.MainActivity"
-            android:exported="false"></activity>
 
         <service android:name="com.proyecto.droidnotes.services.MyFirebaseMessagingClient"
             android:exported="true"
