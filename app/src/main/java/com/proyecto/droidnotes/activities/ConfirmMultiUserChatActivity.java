@@ -40,8 +40,7 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
 
     Chat mExtraChat;
 
-    /////////// PAGE ///////////////////////
-    // VARIABLES GLOBALES ==========================================================================
+    // VARIABLES GLOBALES
     TextInputEditText mTextInputGroupName;
     Button mButtonConfirm;
     CircleImageView mCircleImagePhoto;
@@ -62,7 +61,6 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
 
     Boolean group = false;
     Boolean verIntegrantes = false;
-    // =============================================================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,9 +207,7 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
             }
         });
     }
-    // ------------------------------------------------------------------------------------------------
-
-    // MOSTRARA LAS IMAGENES DE LA GALERIA =========================================================
+    // MOSTRARA LAS IMAGENES DE LA GALERIA
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -235,8 +231,6 @@ public class ConfirmMultiUserChatActivity extends AppCompatActivity {
             }
         }
     }
-// =======================================================================================================
-
 
 
 }

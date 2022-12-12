@@ -1,7 +1,6 @@
 package com.proyecto.droidnotes.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.proyecto.droidnotes.R;
 import com.proyecto.droidnotes.activities.AddMultiUserActivity;
-import com.proyecto.droidnotes.activities.ChatActivity;
 import com.proyecto.droidnotes.models.User;
 import com.proyecto.droidnotes.providers.AuthProvider;
 import com.squareup.picasso.Picasso;

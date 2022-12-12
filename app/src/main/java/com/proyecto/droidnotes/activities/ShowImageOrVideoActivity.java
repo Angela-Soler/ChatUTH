@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 public class ShowImageOrVideoActivity extends AppCompatActivity {
 
 
-// VARIABLES ///////////////////////////////////////////////////////////////////////////
+// Variables
     ImageView mImageViewBack;
     ImageView mImageViewPicture;
     ImageView mImageViewVideo;
@@ -27,14 +27,14 @@ public class ShowImageOrVideoActivity extends AppCompatActivity {
 
     String mExtraUrl;
     String mExtraType;
-    // CIERRE ///////////////////////////////////////////////////////////////////////////
+    // Cierre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_image_or_video);
         setStatusBarColor();
 
-        /// INSTANCIAS ////////////////////////////////////////////////////
+        /// Instancias
         mImageViewBack = findViewById(R.id.imageViewBack);
         mImageViewPicture = findViewById(R.id.imageViewPicture);
         mImageViewVideo = findViewById(R.id.imageViewVideo);
@@ -47,7 +47,7 @@ public class ShowImageOrVideoActivity extends AppCompatActivity {
         mExtraUrl = getIntent().getStringExtra("url");
 
         Log.i("LOG","URL"+mExtraUrl);
-        // CIERRE INSTANCIAS ///////////////////////////////////////////////
+        // Cierre instancias
 
 
         // REPRODUCCION DEL VIDEO O MUESTRA DE LA IMAGEN

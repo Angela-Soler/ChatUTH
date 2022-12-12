@@ -11,16 +11,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.proyecto.droidnotes.R;
-import com.proyecto.droidnotes.activities.ChatActivity;
 import com.proyecto.droidnotes.channel.NotificationHelper;
 import com.proyecto.droidnotes.models.Message;
 import com.proyecto.droidnotes.providers.MessagesProvider;

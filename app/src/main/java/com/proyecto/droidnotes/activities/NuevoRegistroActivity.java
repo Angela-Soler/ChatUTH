@@ -8,7 +8,6 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,7 +16,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,12 +30,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.UploadTask;
 import com.proyecto.droidnotes.R;
@@ -61,7 +56,7 @@ public class NuevoRegistroActivity extends AppCompatActivity {
 
     ProgressBar mProgressBar;
 
-    // VARIABLES GLOBALES ==========================================================================
+    // VARIABLES GLOBALES
     TextInputEditText mTextInputUsername,
             mTextInputPass,
             mTextInputCuenta,
@@ -192,7 +187,7 @@ public class NuevoRegistroActivity extends AppCompatActivity {
         Pix.start(NuevoRegistroActivity.this, mOptions);
     }
 
-    // Actualizar info al momento de seleccionar confirmar -------------------------------
+    // Actualizar info al momento de seleccionar confirmar
     private void updateUserInfo(String url) {
         mUsername = mTextInputUsername.getText().toString();
         mUserCuenta = mTextInputCuenta.getText().toString();
@@ -210,7 +205,7 @@ public class NuevoRegistroActivity extends AppCompatActivity {
         user.setId(mAuthProvider.getId());
         user.setImage(url);
 
-        // INGRESO DE INFORMACION EN LA BDD //////////////////////////////////////////////////////////////////////////////////
+        // INGRESO DE INFORMACION EN LA BD
         mUsersProvider.updateAll(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -224,7 +219,6 @@ public class NuevoRegistroActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        ///////////////////// OUT ///////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public void registrar() {
@@ -309,9 +303,7 @@ public class NuevoRegistroActivity extends AppCompatActivity {
             }
         }
     }
-    // ------------------------------------------------------------------------------------------------
-
-    // MOSTRARA LAS IMAGENES DE LA GALERIA =========================================================
+    // MOSTRARA LAS IMAGENES DE LA GALERIA
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

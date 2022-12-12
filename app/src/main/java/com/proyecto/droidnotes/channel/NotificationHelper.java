@@ -19,8 +19,6 @@ import com.proyecto.droidnotes.models.Message;
 
 import java.util.Date;
 
-import kotlin.text.UStringsKt;
-
 
 //////////////////////////   CONFIGURACIONES PARA CREAR EL CANAL DE NOTIFICACIONES ///////////////////////////////////////
 public class NotificationHelper extends ContextWrapper {

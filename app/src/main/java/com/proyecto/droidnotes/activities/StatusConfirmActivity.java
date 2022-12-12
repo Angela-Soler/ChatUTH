@@ -7,29 +7,19 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.google.gson.Gson;
 import com.proyecto.droidnotes.R;
-import com.proyecto.droidnotes.adapters.OptionsPagerAdapter;
 import com.proyecto.droidnotes.adapters.StatusPagerAdapter;
-import com.proyecto.droidnotes.models.Message;
 import com.proyecto.droidnotes.models.Status;
-import com.proyecto.droidnotes.models.User;
 import com.proyecto.droidnotes.providers.AuthProvider;
-import com.proyecto.droidnotes.providers.ChatsProvider;
 import com.proyecto.droidnotes.providers.ImageProvider;
-import com.proyecto.droidnotes.providers.NotificationProvider;
-import com.proyecto.droidnotes.utils.ExtensionFile;
 import com.proyecto.droidnotes.utils.ShadowTransformer;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class StatusConfirmActivity extends AppCompatActivity {
 
-    // VARIABLES GLOBALES =========================================================================
+    // Variables globales
     ViewPager mViewPager;
     // CIERRE =====================================
     ArrayList<String> data;
@@ -37,7 +27,6 @@ public class StatusConfirmActivity extends AppCompatActivity {
     AuthProvider mAuthProvider;
 
     ArrayList<Status> mStatus = new ArrayList<>();
-    // ============================================================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +34,12 @@ public class StatusConfirmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_status_confirm);
         setStatusBarColor();
 
-        // INSTANCIAS ==============================================================================
+        // Instancias
         mViewPager = findViewById(R.id.viewPager);
         mAuthProvider = new AuthProvider();
 
         data = getIntent().getStringArrayListExtra("data");
         mImageProvider = new ImageProvider();
-        // ========================================================================================
 
         // INCLUYE EN messages TODOS LOS MENSAJES QUE SE ALMACENARIAN EN LA BDD
         if (data != null){

@@ -1,9 +1,5 @@
 package com.proyecto.droidnotes.providers;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.Person;
-import androidx.core.graphics.drawable.IconCompat;
-
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;

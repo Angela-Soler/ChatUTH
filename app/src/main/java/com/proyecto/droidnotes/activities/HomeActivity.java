@@ -24,7 +24,6 @@ import com.proyecto.droidnotes.fragments.StatusFragment;
 import com.proyecto.droidnotes.providers.AuthProvider;
 import com.proyecto.droidnotes.providers.UsersProvider;
 
-// IMPLEMENTAMOS UNA INTERFACE PARA TRABAJAR CON EL SEARCHBAR
 // - IMPLEMENTAMOS LOS 3 METODOS QUE REQUIERE
 public class HomeActivity extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener{
 
@@ -57,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
         mViewPager = findViewById(R.id.viewPager);
 
 
-        // F R A G M E N T S ===========================================================================
+        // F R A G M E N T S
         // DEFINIMOS EL NUMERO DE FRAGMENTS
         mViewPager.setOffscreenPageLimit(3);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -79,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
 
         setupTabIcon();
 
-        // C I E R R E ===========================================================================
+        // Cierre
 
         // METODO PARA INCLUIR NUESTRO MENU / CIERRE DE SESION
         mSearchBar.setOnSearchActionListener(this);
@@ -181,7 +180,7 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
     }
 
 
-    // METODOS QUE NECESITAMOS PARA TRABAJAR CON EL SEACHBAR ----------
+    // METODOS QUE NECESITAMOS PARA TRABAJAR CON EL SEACHBAR
     @Override
     public void onSearchStateChanged(boolean enabled) {
         Toast.makeText(getApplicationContext(), mSearchBar.getText(), Toast.LENGTH_SHORT).show();
@@ -197,7 +196,7 @@ public class HomeActivity extends AppCompatActivity implements MaterialSearchBar
 
     }
 
-    // CIERRE -----------------------------------------------------------------
+    // CIERRE
 
     private void setStatusBarColor(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){

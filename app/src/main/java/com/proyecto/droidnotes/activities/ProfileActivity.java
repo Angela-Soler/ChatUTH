@@ -45,7 +45,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    // VARIABLES GLOBALES ==========================================================================
+    // VARIABLES GLOBALES
     FloatingActionButton mFabSelectImage;
     BottonSheetSelectImage mBottonSheetSelectImage;
     BottonSheetUsername mBottonSheetUsername;
@@ -66,7 +66,6 @@ public class ProfileActivity extends AppCompatActivity {
     File mImageFile;
 
     ListenerRegistration mListener;
-    // =============================================================================================
 
     // EVENTO ONCREATE
     @Override
@@ -76,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         MyToolbar.show(this, "Perfil", true);
 
-        // INSTANCIA DE VARIABLES =================================================================
+        // INSTANCIA DE VARIABLES
         mUsersProvider = new UsersProvider();
         mAuthProvider = new AuthProvider();
 
@@ -105,7 +104,6 @@ public class ProfileActivity extends AppCompatActivity {
                 .setPath("/pix/images");                                       //Custom Path For media Storage
 
         mFabSelectImage = findViewById(R.id.fabSelectImage);
-        // =========================================================================================
 
 
         mFabSelectImage.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +212,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    // IMAGE =======================================================================================
+    // IMAGE
     // METODO, UNA VEZ QUE SE ELIMINE LA IMAGEN QUE SE COLOQUE LA IMAGEN POR DEFECTO
     public void setImageDefault ()
     {
@@ -279,7 +277,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-    // =============================================================================================
 
 
 }

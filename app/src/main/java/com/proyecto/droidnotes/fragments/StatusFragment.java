@@ -3,7 +3,6 @@ package com.proyecto.droidnotes.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -28,13 +27,11 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.proyecto.droidnotes.R;
-import com.proyecto.droidnotes.activities.ProfileActivity;
 import com.proyecto.droidnotes.activities.StatusConfirmActivity;
 import com.proyecto.droidnotes.adapters.StatusAdapter;
 import com.proyecto.droidnotes.models.Status;
 import com.proyecto.droidnotes.providers.StatusProvider;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;

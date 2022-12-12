@@ -2,7 +2,6 @@ package com.proyecto.droidnotes.utils;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -50,54 +50,54 @@
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
-            android:name=".activities.ResetPassActivity"
+            android:name="com.proyecto.droidnotes.activities.ResetPassActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activities.StatusDetailActivity"
+            android:name="com.proyecto.droidnotes.activities.StatusDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.StatusConfirmActivity"
+            android:name="com.proyecto.droidnotes.activities.StatusConfirmActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.ChatMultiActivity"
+            android:name="com.proyecto.droidnotes.activities.ChatMultiActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConfirmMultiUserChatActivity"
+            android:name="com.proyecto.droidnotes.activities.ConfirmMultiUserChatActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.AddMultiUserActivity"
+            android:name="com.proyecto.droidnotes.activities.AddMultiUserActivity"
             android:exported="false"
-            android:parentActivityName=".activities.HomeActivity" />
+            android:parentActivityName="com.proyecto.droidnotes.activities.HomeActivity" />
         <activity
-            android:name=".activities.ShowImageOrVideoActivity"
+            android:name="com.proyecto.droidnotes.activities.ShowImageOrVideoActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConfirmImageSendActivity"
+            android:name="com.proyecto.droidnotes.activities.ConfirmImageSendActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.ChatActivity"
+            android:name="com.proyecto.droidnotes.activities.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ProfileActivity"
+            android:name="com.proyecto.droidnotes.activities.ProfileActivity"
             android:exported="false"
-            android:parentActivityName=".activities.HomeActivity" />
+            android:parentActivityName="com.proyecto.droidnotes.activities.HomeActivity" />
         <activity
-            android:name=".activities.HomeActivity"
+            android:name="com.proyecto.droidnotes.activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CompleteInfoActivity"
+            android:name="com.proyecto.droidnotes.activities.CompleteInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CodeVerificationActivity"
+            android:name="com.proyecto.droidnotes.activities.CodeVerificationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name="com.proyecto.droidnotes.activities.RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -106,13 +106,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.NuevoRegistroActivity"
+            android:name="com.proyecto.droidnotes.activities.NuevoRegistroActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.proyecto.droidnotes.activities.MainActivity"
             android:exported="false"></activity>
 
-        <service android:name=".services.MyFirebaseMessagingClient"
+        <service android:name="com.proyecto.droidnotes.services.MyFirebaseMessagingClient"
             android:exported="true"
             android:enabled="true"
             android:permission="com.google.android.c2dm.permission.Recieve">
@@ -127,7 +127,7 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" /> <!-- REGISTRO DEL RECEIVER -->
         <receiver
-            android:name=".receivers.ResponseReceiver"
+            android:name="com.proyecto.droidnotes.receivers.ResponseReceiver"
             android:enabled="true"
             android:exported="false" />
 

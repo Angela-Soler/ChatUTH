@@ -18,7 +18,6 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.proyecto.droidnotes.R;
-import com.proyecto.droidnotes.activities.ConfirmImageSendActivity;
 import com.proyecto.droidnotes.activities.StatusConfirmActivity;
 import com.proyecto.droidnotes.adapters.CardAdapter;
 import com.proyecto.droidnotes.utils.ExtensionFile;

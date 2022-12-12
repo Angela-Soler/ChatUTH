@@ -23,7 +23,6 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.util.Map;
-import java.util.Random;
 
 public class MyFirebaseMessagingClient extends FirebaseMessagingService {
 

@@ -195,7 +195,7 @@ public class CodeVerificationActivity extends AppCompatActivity {
     }
 
 
-    // METODO PARA IR AL ACTIVITY MENU O HOME ----------------------------------------------------------
+    // METODO PARA IR AL ACTIVITY MENU O HOME
     private void goToHomeActivity()
     {
         Intent intent = new Intent(CodeVerificationActivity.this, HomeActivity.class);
@@ -203,7 +203,6 @@ public class CodeVerificationActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-   // ----------------------------------------------------------------------------------------------------
 
     // Metodo para pasar al acivity CompleteInfoActivity
     private void goToCompleteInfo()
