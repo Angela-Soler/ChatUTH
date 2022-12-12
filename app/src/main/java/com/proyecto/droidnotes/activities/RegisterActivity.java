@@ -148,20 +148,20 @@ public class RegisterActivity extends AppCompatActivity {
                                         } else {
                                             Toast.makeText(RegisterActivity.this, "Cuenta debe registrarse", Toast.LENGTH_SHORT).show();
                                             mAuthProvider.signOut();
-                                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                            startActivity(intent);
+                                            /*Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                            startActivity(intent);*/
                                         }
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Esta cuenta no existe", Toast.LENGTH_SHORT).show();
                                         mAuthProvider.signOut();
-                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                        startActivity(intent);
+                                        /*Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                        startActivity(intent);*/
                                     }
                                 } else {
                                     Toast.makeText(RegisterActivity.this, "Esta cuenta no existe", Toast.LENGTH_SHORT).show();
                                     mAuthProvider.signOut();
-                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                    startActivity(intent);
+                                    /*Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                    startActivity(intent);*/
                                 }
 
                             }

@@ -13,12 +13,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
 import com.google.gson.Gson;
 import com.proyecto.droidnotes.R;
-import com.proyecto.droidnotes.adapters.ContactsAdapter;
 import com.proyecto.droidnotes.adapters.MultiUsersAdapter;
 import com.proyecto.droidnotes.models.Chat;
 import com.proyecto.droidnotes.models.User;
@@ -91,7 +89,6 @@ public class AddMultiUserActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (mUsersSelected != null){
-//||(mUsersSelected.size() >= 1 && mUsersId.size()>0)
                     if (id_Chat.equals("")) {
                         if (mUsersSelected.size() >= 2) {
                             createChat();

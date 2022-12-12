@@ -1,7 +1,5 @@
 package com.proyecto.droidnotes.activities;
 
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,7 +15,6 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,8 +32,6 @@ import com.fxn.pix.Pix;
 import com.fxn.utility.PermUtil;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
@@ -53,8 +48,6 @@ import com.proyecto.droidnotes.providers.NotificationProvider;
 import com.proyecto.droidnotes.providers.UsersProvider;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -92,7 +85,6 @@ public class ChatMultiActivity extends AppCompatActivity {
     // MESSAGE
     EditText mEditextMessage;
     ImageView mImageViewSend;
-    // ==================
 
     ImageView mImageViewSelectFile;
     ImageView mImageViewSelectPictures;
@@ -100,7 +92,6 @@ public class ChatMultiActivity extends AppCompatActivity {
     // NOTIFICACIONES
     User mUserReceiver;
     User mMyUser;
-    // ==============
 
     MessagesAdapter mAdapter;
     RecyclerView mRecyclerViewMessages;
@@ -135,8 +126,7 @@ public class ChatMultiActivity extends AppCompatActivity {
 
         //Log.i("LOG", getIntent().getStringExtra("ids"));
 
-        // INSTANCIAS ==============================================================================
-
+        // INSTANCIAS
 
 
         //mExtraIdUser = mChat.getIds().toString();
@@ -176,7 +166,7 @@ public class ChatMultiActivity extends AppCompatActivity {
         mRecyclerViewMessages = findViewById(R.id.recyclerViewMessages);
 
         mImageViewSelectPictures = findViewById(R.id.imageViewSelectPictures);
-        // CIERRE INTANCIAS ========================================================================
+        // CIERRE INTANCIAS
 
 
         // LA INFORMACION QUE SE MOSTRARA SE REFLEJARA UNA DEBAJO DEL OTRO
@@ -197,7 +187,6 @@ public class ChatMultiActivity extends AppCompatActivity {
                 .setPath("/pix/images");                                       //Custom Path For media Storage
 
 
-        // =========================================================================================
         showChatToolbar(R.layout.chat_toolbar);
         getMyUserInfo();
         getReceiversInfo();
@@ -266,7 +255,7 @@ public class ChatMultiActivity extends AppCompatActivity {
             });
         }
     }
-    ///////////////////////////// CIERRE DEL CREATE /////////////////////////////////////////////////
+    //CIERRE DEL CREATE
 
 
     // OBTENEMOS LOS TIPOS DE ARCHIVOS QUE VAN A SER VALIDOS PARA SUBIR EN NUESTRO CHAT
@@ -307,7 +296,7 @@ public class ChatMultiActivity extends AppCompatActivity {
     }
 
 
-    //  INSTANCIAR EL ADAPTER =================================================
+    //  INSTANCIAR EL ADAPTER
 
     // SE EJECUTA AL ABRIR EL ACTIVITY
     @Override
@@ -333,7 +322,6 @@ public class ChatMultiActivity extends AppCompatActivity {
         Pix.start(ChatMultiActivity.this, mOptions);
     }
 
-    // ========================================================================
 
 
 
@@ -688,7 +676,6 @@ public class ChatMultiActivity extends AppCompatActivity {
             }
         }
     }
-// =======================================================================================================
 
     // LA BARRA SUPOERIOR COLOREARLA DE COLOR NEGRO
     private void setStatusBarColor(){

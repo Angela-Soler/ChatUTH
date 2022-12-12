@@ -11,8 +11,6 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.proyecto.droidnotes.models.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 

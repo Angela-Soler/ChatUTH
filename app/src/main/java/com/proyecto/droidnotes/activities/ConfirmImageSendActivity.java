@@ -16,7 +16,6 @@ import com.proyecto.droidnotes.models.User;
 import com.proyecto.droidnotes.providers.AuthProvider;
 import com.proyecto.droidnotes.providers.ChatsProvider;
 import com.proyecto.droidnotes.providers.ImageProvider;
-import com.proyecto.droidnotes.providers.MessagesProvider;
 import com.proyecto.droidnotes.providers.NotificationProvider;
 import com.proyecto.droidnotes.utils.ExtensionFile;
 import com.proyecto.droidnotes.utils.ShadowTransformer;
@@ -29,13 +28,13 @@ import java.util.Map;
 
 public class ConfirmImageSendActivity extends AppCompatActivity {
 
-    // VARIABLES GLOBALES =========================================================================
+    // VARIABLES GLOBALES
     ViewPager mViewPager;
     // VARIABLES DE USUARIOS EMISOR Y RECEPTOR ====
     String mExtraIdChat;
     String mExtraIdReceiver;
     String mExtraIdNotification;
-    // CIERRE =====================================
+
     ArrayList<String> data;
     ArrayList<Message> messages = new ArrayList<>();
 
@@ -49,7 +48,6 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
     String receiverUser = "";
     String group_name = "";
     List<String> tokens_id = new ArrayList<>();
-    // ============================================================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +55,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_image_send);
         setStatusBarColor();
 
-        // INSTANCIAS ==============================================================================
+        // INSTANCIAS
         mViewPager = findViewById(R.id.viewPager);
         mAuthProvider = new AuthProvider();
 
@@ -69,7 +67,7 @@ public class ConfirmImageSendActivity extends AppCompatActivity {
         mImageProvider = new ImageProvider();
         mChatProvier = new ChatsProvider();
         mNotificationProvider = new NotificationProvider();
-        // ========================================================================================
+
         String myUser = getIntent().getStringExtra("myUser");
         receiverUser = getIntent().getStringExtra("receiverUser");
         tokens_id = getIntent().getStringArrayListExtra("tokens");

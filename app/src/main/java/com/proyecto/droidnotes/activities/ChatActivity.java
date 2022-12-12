@@ -13,8 +13,6 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,11 +36,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.proyecto.droidnotes.R;
-import com.proyecto.droidnotes.adapters.ChatsAdapter;
 import com.proyecto.droidnotes.adapters.MessagesAdapter;
 import com.proyecto.droidnotes.models.Chat;
-import com.proyecto.droidnotes.models.FCMBody;
-import com.proyecto.droidnotes.models.FCMResponse;
 import com.proyecto.droidnotes.models.Message;
 import com.proyecto.droidnotes.models.User;
 import com.proyecto.droidnotes.providers.AuthProvider;
@@ -53,9 +48,6 @@ import com.proyecto.droidnotes.providers.NotificationProvider;
 import com.proyecto.droidnotes.providers.UsersProvider;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -65,13 +57,9 @@ import java.util.Map;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity {
 
-    //////////////////////////////////// VARIABLES GLOBALES /////////////////////////////////////////
     String mExtraIdUser;
     String mExtraIdChat;
 
@@ -91,7 +79,6 @@ public class ChatActivity extends AppCompatActivity {
     EditText mEditextMessage;
     ImageView mImageViewSend;
     ImageView add_user, viewVerIntegrantes;
-    // ==================
 
     ImageView mImageViewSelectFile;
     ImageView mImageViewSelectPictures;
@@ -99,7 +86,6 @@ public class ChatActivity extends AppCompatActivity {
     // NOTIFICACIONES
     User mUserReceiver;
     User mMyUser;
-    // ==============
 
     MessagesAdapter mAdapter;
     RecyclerView mRecyclerViewMessages;
@@ -111,19 +97,15 @@ public class ChatActivity extends AppCompatActivity {
     ArrayList<Uri> mFileList;
     final int ACTION_FILE = 2;
     Chat mChat;
-    /////////////////////////////////// CIERRE DE VARIABLES ////////////////////////////////////////
 
-    /////////////////////////////////// INICIO DEL CREATE //////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         setStatusBarColor();
 
-        // INSTANCIAS ==============================================================================
         mExtraIdUser = getIntent().getStringExtra("idUser");
         mExtraIdChat = getIntent().getStringExtra("idChat");
-        //mUser = new User();
         Log.i("LOG", "Ingresando a Chat Activity");
         mUsersProvider = new UsersProvider();
         mAuthProvider = new AuthProvider();
@@ -138,7 +120,6 @@ public class ChatActivity extends AppCompatActivity {
         mRecyclerViewMessages = findViewById(R.id.recyclerViewMessages);
 
         mImageViewSelectPictures = findViewById(R.id.imageViewSelectPictures);
-        // CIERRE INTANCIAS ========================================================================
 
 
 
@@ -161,7 +142,6 @@ public class ChatActivity extends AppCompatActivity {
                 .setPath("/pix/images");                                       //Custom Path For media Storage
 
 
-        // =========================================================================================
         showChatToolbar(R.layout.chat_toolbar);
         getUserReceiverInfo();
         getMyUserInfo();
@@ -194,7 +174,6 @@ public class ChatActivity extends AppCompatActivity {
         });
 
     }
-    ///////////////////////////// CIERRE DEL CREATE /////////////////////////////////////////////////
 
 
     // OBTENEMOS LOS TIPOS DE ARCHIVOS QUE VAN A SER VALIDOS PARA SUBIR EN NUESTRO CHAT
@@ -227,7 +206,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    //  INSTANCIAR EL ADAPTER =================================================
+    //  INSTANCIAR EL ADAPTER
 
     // SE EJECUTA AL ABRIR EL ACTIVITY
     @Override
@@ -253,7 +232,6 @@ public class ChatActivity extends AppCompatActivity {
         Pix.start(ChatActivity.this, mOptions);
     }
 
-    // ========================================================================
 
 
 
@@ -532,7 +510,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    // METODO QUE NOS PERMITE CAPTURAR LOS VALORES QUE EL USUARIO SELECCIONO=========================================
+    // METODO QUE NOS PERMITE CAPTURAR LOS VALORES QUE EL USUARIO SELECCIONO
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -612,7 +590,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
     }
-// =======================================================================================================
 
     // LA BARRA SUPOERIOR COLOREARLA DE COLOR NEGRO
     private void setStatusBarColor(){

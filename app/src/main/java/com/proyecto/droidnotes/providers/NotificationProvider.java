@@ -1,10 +1,8 @@
 package com.proyecto.droidnotes.providers;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.proyecto.droidnotes.activities.ChatActivity;
 import com.proyecto.droidnotes.models.FCMBody;
 import com.proyecto.droidnotes.models.FCMResponse;
 import com.proyecto.droidnotes.retrofit.IFCMApi;

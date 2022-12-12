@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.proyecto.droidnotes.fragments.ImagePagerFragment;
 import com.proyecto.droidnotes.fragments.StatusPagerFragment;
 
 import java.util.ArrayList;
